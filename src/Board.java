@@ -25,7 +25,7 @@ public class Board extends JPanel implements ActionListener {
     private final int DOT_SIZE = 10;
     private final int ALL_DOTS = 900;
     private final int RAND_POS = 29;
-    private final int DELAY = 100;
+    private final int DELAY = 140;
 
     private final int x[] = new int[ALL_DOTS];
     private final int y[] = new int[ALL_DOTS];
@@ -33,6 +33,7 @@ public class Board extends JPanel implements ActionListener {
     private int dots;
     private int apple_x;
     private int apple_y;
+    private int amountOfPoints = 0;
 
     private boolean leftDirection = false;
     private boolean rightDirection = true;
@@ -58,17 +59,7 @@ public class Board extends JPanel implements ActionListener {
         setBackground(color);
         setFocusable(true);        
         setPreferredSize(new Dimension(B_WIDTH, B_HEIGHT));
-        
-        //JPanel panel = new JPanel(new BorderLayout());
-        //JMenuBar mb = new JMenuBar();
-        //JMenu m = new JMenu("Size");
-        //JMenuItem mi = new JMenuItem("300x300");
-        
-        //m.add(mi);
-        //mb.add(m);
-        //panel.add(mb);
-        //add(panel, BorderLayout.SOUTH);
-        
+       
         loadImages();
         initGame();
     }
@@ -130,7 +121,9 @@ public class Board extends JPanel implements ActionListener {
 
     private void gameOver(Graphics g) {
         
-        int answ = JOptionPane.showConfirmDialog(null, "Play again?","Game over",JOptionPane.YES_NO_OPTION);
+        int answ = JOptionPane.showConfirmDialog(null, "Play again? \n You earned: "+ amountOfPoints
+        		+ " points","Game over",JOptionPane.YES_NO_OPTION);
+        
         if(answ == JOptionPane.YES_OPTION) {
         	
         	Snake snake = new Snake();
@@ -147,6 +140,7 @@ public class Board extends JPanel implements ActionListener {
         if ((x[0] == apple_x) && (y[0] == apple_y)) {
 
             dots++;
+            amountOfPoints++;
             apple();
         }
     }
